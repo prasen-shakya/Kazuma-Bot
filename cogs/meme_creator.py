@@ -28,7 +28,7 @@ class MemeCreator(commands.Cog):
         help_embed.add_field(
             name="To See The Available Meme Templates:", value="templates (optional param: id of the meme, 0-998)", inline=False)
         help_embed.add_field(name="To Create A Meme:",
-                             value="create (top text), (bottom text), (name of the image template you want to use)", inline=False)
+                             value="create (top text), (bottom text), (name or id of the image template you want to use)", inline=False)
 
         help_embed.set_footer(text="Created By ChilledFrost#7765")
 
@@ -43,6 +43,12 @@ class MemeCreator(commands.Cog):
             await ctx.send("__**Please enter values for the command.**__")
             await self.meme_help(ctx)
             return
+
+        try:
+
+            img_name = meme_template_names[int(img_name)]
+        except ValueError:
+            pass
 
         if not img_name in meme_template_names:
             await ctx.send("**The template image name you have provided is invalid.**")
